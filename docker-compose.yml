@@ -1,0 +1,52 @@
+﻿services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: infrawatch-rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - infrawatch-net
+
+  monitoring-service:
+    build: ./monitoring-service
+    container_name: infrawatch-monitoring
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - rabbitmq
+    networks:
+      - infrawatch-net
+
+  alert-service:
+    build: ./alert-service
+    container_name: infrawatch-alert
+    restart: unless-stopped
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - rabbitmq
+    networks:
+      - infrawatch-net
+
+  middleware:
+    build: ./middleware
+    container_name: infrawatch-middleware
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - MONITORING_SERVICE_URL=http://monitoring-service:8001
+      - API_TOKEN=dev-token-123
+    depends_on:
+      - monitoring-service
+    networks:
+      - infrawatch-net
+
+networks:
+  infrawatch-net:
+    driver: bridge

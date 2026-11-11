@@ -47,6 +47,19 @@
     networks:
       - infrawatch-net
 
+  simulator:
+    build: ./simulator
+    container_name: infrawatch-simulator
+    restart: unless-stopped
+    environment:
+      - MIDDLEWARE_URL=http://middleware:8000/metrics
+      - API_TOKEN=dev-token-123
+      - INTERVAL_SECONDS=3.0
+    depends_on:
+      - middleware
+    networks:
+      - infrawatch-net
+
 networks:
   infrawatch-net:
     driver: bridge

@@ -1,6 +1,6 @@
 # InfraWatch — Middleware Distribuído para Monitoramento de Infraestrutura
 
-O **InfraWatch** é um projeto acadêmico desenvolvido para a disciplina de Middleware Distribuído, com o objetivo de construir uma solução de monitoramento de infraestrutura utilizando comunicação entre serviços independentes.
+O **InfraWatch** é um projeto acadêmico desenvolvido para a disciplina de Arquitetura de Sistemas, com o objetivo de construir uma solução de monitoramento de infraestrutura utilizando comunicação entre serviços independentes.
 
 A aplicação pretende simular o monitoramento de servidores, coletando métricas como uso de CPU, memória RAM e disponibilidade. A partir dessas informações, o sistema deverá identificar condições anormais e gerar alertas.
 
